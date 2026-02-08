@@ -63,7 +63,7 @@ export default function SignUp(){
                             type="submit"
                             className="w-full bg-primary hover:bg-primary/90"
                         >
-                            Sign up
+                            Sign Up
                         </Button>
                         <p className="text-center text-sm text-gray-600">
                             Already have an account?{" "}
