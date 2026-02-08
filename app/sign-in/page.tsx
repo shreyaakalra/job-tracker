@@ -12,8 +12,46 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useState } from "react";
+import { signIn } from "@/lib/auth/auth-client"
+import { useRouter } from "next/navigation";
+
 
 export default function SignIn() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  async function handleSubmit(e: React.FormEvent){
+    e.preventDefault();
+
+    setError("");
+    setLoading(true);
+
+    try{
+      const result = await signIn.email({
+        email,
+        password
+      });
+
+      if(result.error){
+        setError(result.error.message ?? "Failed to sign up")
+      } else {
+        router.push("/dashboard")
+      }
+    } catch (err){
+      setError("An error has occured.")
+      console.log(err)
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-white p-4">
       <Card className="w-full max-w-md border-gray-200 shadow-lg">
@@ -26,8 +64,13 @@ export default function SignIn() {
           </CardDescription>
         </CardHeader>
         
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
             <CardContent className="space-y-4">
+              {error && (
+                <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
+                  {error}
+                </div>
+              )}
                 <div className="space-y-2">
                     <Label htmlFor="email" className="text-gray-700">
                         Email
@@ -35,6 +78,8 @@ export default function SignIn() {
                     <Input 
                         id="email"
                         type="email"
+                        value={email}
+                        onChange={(e)=>{setEmail(e.target.value)}}
                         placeholder="you@example.com"
                         required
                         className="border-gray-300 focus:border-primary focus:ring-primary"
@@ -47,6 +92,8 @@ export default function SignIn() {
                     <Input
                         id="password"
                         type="password"
+                        value={password}
+                        onChange={(e)=>{setPassword(e.target.value)}}
                         required
                         minLength={8}
                         className="border-gray-300 focus:border-primary focus:ring-primary"
@@ -58,7 +105,7 @@ export default function SignIn() {
                     type="submit"
                     className="w-full bg-primary hover:bg-primary/90 mt-4"
                 >
-                    Sign in
+                    {loading ? "Signing in..." : "Sign in"}
                 </Button>
                 <p className="text-center text-sm text-gray-600">
                   Don&apos;t have an account?{" "}
