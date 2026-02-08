@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -17,19 +16,14 @@ import Link from "next/link";
 export default function SignIn() {
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-white p-4">
-      <Card className="w-full max-w-sm border-gray-200 shadow-lg">
-        <CardHeader className="space-y-1">
+      <Card className="w-full max-w-md border-gray-200 shadow-lg">
+        <CardHeader>
           <CardTitle className="text-2xl font-bold text-black">
             Login to your Account
           </CardTitle>
           <CardDescription>
             Enter your credentials to access your account
           </CardDescription>
-          {/*<CardAction>
-            <Link href="/sign-up" className="font-medium text-primary hover:underline">
-                Sign up
-            </Link>
-          </CardAction>*/}
         </CardHeader>
         
         <form className="space-y-4">
@@ -62,21 +56,21 @@ export default function SignIn() {
             <CardFooter className="flex flex-col space-y-4">
                 <Button
                     type="submit"
-                    className="w-full bg-primary hover:bg-primary/90"
+                    className="w-full bg-primary hover:bg-primary/90 mt-4"
                 >
                     Sign in
                 </Button>
-                <div className="flex flex-row gap-2">
-                    <p className="text-center text-sm text-gray-600">
-                        Don&apos;t have an account?{" "}
-                    </p>
-                    <Link 
-                        href="/sign-up"
-                        className="font-medium text-sm text-primary hover:underline"
-                    >
-                        Sign Up
-                    </Link>
-                </div>
+                <p className="text-center text-sm text-gray-600">
+                  Don&apos;t have an account?{" "}
+                  <Link 
+                  href="/sign-up"
+                  className="font-medium text-sm text-primary hover:underline"
+                  >
+                  Sign Up
+                  </Link>
+                </p>
+                    
+               
             </CardFooter>
         </form>
        
