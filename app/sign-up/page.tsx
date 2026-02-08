@@ -5,9 +5,49 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useState } from "react";
+import { signUp } from "@/lib/auth/auth-client"
+import { useRouter } from "next/navigation";
 
 
 export default function SignUp(){
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const[error, setError] = useState("");
+    const[loading, setLoading] = useState(false);
+
+    const router = useRouter();
+
+    async function handleSubmit(e: React.FormEvent){
+        e.preventDefault();
+
+        setError("");
+        setLoading(true);
+
+        try{
+            const result = await signUp.email({
+                name,
+                email,
+                password
+            });
+
+            if(result.error){
+                setError(result.error.message ?? "Failed to sign up");
+            } else {
+                router.push("/dashboard")
+            }
+
+        } catch (err) {
+            setError("An unexpected error occured");
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return(
         <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-white p-4">
             <Card className="w-full max-w-md border-gray-200 shadow-lg">
@@ -19,8 +59,13 @@ export default function SignUp(){
                         Create an account to start your job applications
                     </CardDescription>
                 </CardHeader>
-                <form className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                     <CardContent className="space-y-4">
+                        {error && (
+                            <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
+                                {error}
+                            </div>
+                        )}
                         <div className="space-y-2">
                             <Label htmlFor="name" className="text-gray-700">
                                 Name
@@ -28,6 +73,8 @@ export default function SignUp(){
                             <Input 
                                 id="name"
                                 type="text"
+                                value={name}
+                                onChange={(e)=>{setName(e.target.value)}}
                                 placeholder="John Doe"
                                 required
                                 className="border-gray-300 focus:border-primary focus:ring-primary"
@@ -40,6 +87,8 @@ export default function SignUp(){
                             <Input
                                 id="email"
                                 type="email"
+                                value={email}
+                                onChange={(e)=>{setEmail(e.target.value)}}
                                 placeholder="you@example.com"
                                 required
                                 className="border-gray-300 focus:border-primary focus:ring-primary"
@@ -52,6 +101,8 @@ export default function SignUp(){
                             <Input 
                                 id="password"
                                 type="password"
+                                value={password}
+                                onChange={(e)=>{setPassword(e.target.value)}}
                                 required
                                 minLength={8}
                                 className="border-gray-300 focus:border-primary focus:ring-primary"
