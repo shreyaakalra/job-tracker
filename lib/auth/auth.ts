@@ -22,3 +22,11 @@ export async function getSession(){
 
   return result;
 }
+
+export async function SignOut(){
+  const result = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  
+}
