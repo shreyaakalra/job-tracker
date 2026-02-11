@@ -1,7 +1,7 @@
 import { Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { getSession } from "@/lib/auth/auth";
+import { getSession, signOut } from "@/lib/auth/auth";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 
@@ -47,7 +47,7 @@ export default async function Navbar(){
                                         <p>{session.user.email}</p>
                                     </div>
                                 </DropdownMenuLabel>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem onClick={async() => await signOut()}>
                                     Log Out
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
