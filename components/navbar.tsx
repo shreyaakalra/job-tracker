@@ -1,13 +1,17 @@
+"use client"
+
 import { Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { getSession, signOut } from "@/lib/auth/auth";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "./ui/avatar";
+import SignOutButton from "./sign-out-button";
+import { useSession } from "@/lib/auth/auth-client";
 
-export default async function Navbar(){
+export default function Navbar(){
     
-    const session = await getSession();
+    const {data: session} = useSession();
 
     return (
         <nav className="border-b border-gray-200 bg-white  ">
@@ -32,24 +36,26 @@ export default async function Navbar(){
                         </Link>
                         <DropdownMenu>
                             <DropdownMenuTrigger>
-                                <Button variant="ghost">
-                                    <Avatar>
+                                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                                    <Avatar className="h-8 w-8" >
                                         <AvatarFallback className="bg-primary text-white">
                                             {session.user.name[0].toUpperCase()}
                                         </AvatarFallback>
                                     </Avatar>
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuLabel>
-                                    <div>
-                                        <p>{session.user.name}</p>
-                                        <p>{session.user.email}</p>
+                            <DropdownMenuContent className="w-56" align="end">
+                                <DropdownMenuLabel className="font-normal">
+                                    <div className="flex flex-col space-y-1">
+                                        <p className="text-sm font-medium leading-none">
+                                            {session.user.name}
+                                        </p>
+                                        <p className="text-xs leading-none text-muted-foreground">
+                                            {session.user.email}
+                                        </p>
                                     </div>
                                 </DropdownMenuLabel>
-                                <DropdownMenuItem onClick={async() => await signOut()}>
-                                    Log Out
-                                </DropdownMenuItem>
+                                <SignOutButton />
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </>
