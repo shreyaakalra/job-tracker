@@ -24,7 +24,6 @@ export default async function Dashboard(){
 
     console.log(board);
 
-
     return(
         <div className="min-h-screen bg-white">
             <div className="container mx-auto p-6">
@@ -35,7 +34,10 @@ export default async function Dashboard(){
                     <p className="text-gray-600">
                         Track your job applications.
                     </p>
-                    <KanbanBoard />
+                    <KanbanBoard
+                        board={board}
+                        userId={session.user.id}
+                    />
                 </div>
             </div>
         </div>
