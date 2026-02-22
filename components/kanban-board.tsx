@@ -31,11 +31,26 @@ const COLUMN_CONFIG: Array<{ color : string; icon: React.ReactNode }> = [
     },
 ];
 
+function DroppableColumn({column, config, boardId}){
+return 
+}
+
 export default function KanbanBoard({board, userId}: KanbanBoardProps){
+
+    const columns = board.columns;
+
     return(
         <div>
             <div>
-
+                {columns.map((col, key) => {
+                    const config = COLUMN_CONFIG[key] || {
+                        color: "bg-gray-500",
+                        icon: <Calendar className="h-4 w-4" />
+                    };
+                    return (
+                      <></>  
+                    )
+                })}
             </div>
         </div>
     )
