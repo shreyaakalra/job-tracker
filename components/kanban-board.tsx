@@ -70,7 +70,7 @@ function DroppableColumn({
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="text-destructive">
                             <DropdownMenuItem>
-                                <Trash2 className="mr-2 h-4 w-4">
+                                <Trash2 className="">
                                     Delete Column
                                 </Trash2>
                             </DropdownMenuItem>
