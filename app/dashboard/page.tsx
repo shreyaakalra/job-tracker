@@ -20,6 +20,8 @@ export default async function Dashboard(){
     const board = await Board.findOne({
         userId: session.user.id,
         name: "Job Hunt"
+    }).populate({
+         path: "columns"
     }); 
 
     console.log(board);
@@ -35,7 +37,7 @@ export default async function Dashboard(){
                         Track your job applications.
                     </p>
                     <KanbanBoard
-                        board={board}
+                        board={JSON.parse(JSON.stringify(board))}
                         userId={session.user.id}
                     />
                 </div>
