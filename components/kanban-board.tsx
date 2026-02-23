@@ -5,6 +5,7 @@ import { Award, Calendar, CheckCircle2, Mic, MoreHorizontal, MoreVertical, Trash
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
+import CreateJobApplicationDialog from "./create-job-dialog";
 
 interface KanbanBoardProps {
   board: Board;
@@ -80,7 +81,10 @@ function DroppableColumn({
             </CardHeader>
 
             <CardContent className="space-y-2 pt-4 bg-gray-50/50 min-h-[400px] rounded-b-lg">
-
+                <CreateJobApplicationDialog
+                    columnId = {column._id}
+                    boardId = {boardId}
+                />
             </CardContent>
         </Card>
     )
