@@ -2,7 +2,7 @@
 
 import { Board, Column } from "@/lib/models/models.type";
 import { Award, Calendar, CheckCircle2, Mic, MoreHorizontal, MoreVertical, Trash2, XCircle } from "lucide-react";
-import { Card, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 
@@ -70,7 +70,7 @@ function DroppableColumn({
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="text-destructive">
                             <DropdownMenuItem>
-                                <Trash2 className="">
+                                <Trash2 className="mr-2 h-4 w-4">
                                     Delete Column
                                 </Trash2>
                             </DropdownMenuItem>
@@ -78,6 +78,10 @@ function DroppableColumn({
                     </DropdownMenu>
                 </div>
             </CardHeader>
+
+            <CardContent className="space-y-2 pt-4 bg-gray-50/50 min-h-[400px] rounded-b-lg">
+
+            </CardContent>
         </Card>
     )
 }
