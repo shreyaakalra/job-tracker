@@ -27,7 +27,16 @@ export default function CreateJobApplicationDialog({
 }: CreateJobApplicationDialogProps) {
 
     const [open, setOpen] = useState<boolean>(false);
-    
+    const [formData, setFormData] = useState({
+      company: "",
+      position: "",
+      location: "",
+      notes: "",
+      salary: "",
+      jobUrl: "",
+      tags: "",
+      description: "",
+    });
 
   return ( 
     <Dialog open = {open} onOpenChange={setOpen}>
@@ -50,11 +59,25 @@ export default function CreateJobApplicationDialog({
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="company">Company *</Label>
-                <Input id="company" required />
+                <Input id="company" 
+                  required 
+                  value={formData.company}
+                  onChange={(e) => setFormData({
+                    ...formData,
+                    company: e.target.value
+                  })}
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="position">Position *</Label>
-                <Input id="position" required />
+                <Input id="position" 
+                  required 
+                  value={formData.position}
+                  onChange={(e) => setFormData({
+                    ...formData,
+                    position: e.target.value
+                  })}
+                />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
