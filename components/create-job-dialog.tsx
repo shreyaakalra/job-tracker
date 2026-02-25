@@ -14,6 +14,7 @@ import {
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import { useState } from "react";
 
 interface CreateJobApplicationDialogProps {
   columnId: string;
@@ -24,8 +25,12 @@ export default function CreateJobApplicationDialog({
   columnId,
   boardId,
 }: CreateJobApplicationDialogProps) {
-  return (
-    <Dialog>
+
+    const [open, setOpen] = useState<boolean>(false);
+    
+
+  return ( 
+    <Dialog open = {open} onOpenChange={setOpen}>
       <DialogTrigger>
         <Button
           variant="outline"
@@ -85,7 +90,7 @@ export default function CreateJobApplicationDialog({
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" type="button">
+            <Button variant="outline" type="button" onClick={() => setOpen(false)}>
               Cancel
             </Button>
             <Button type="submit">Add Application</Button>
