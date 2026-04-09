@@ -1,3 +1,5 @@
+//DASHBOARD
+
 import { getSession } from "@/lib/auth/auth";
 import connectDB from "@/lib/db";
 import { Board } from "@/lib/models";
